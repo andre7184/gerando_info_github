@@ -1,8 +1,8 @@
-name: Generate Languages Chart
+name: Gerar info Charts
 
 on:
   schedule:
-    - cron: '*/10 * * * *' # Executa diariamente
+    - cron: '*/10 * * * *' # Executa de 10 em 10 minutos
   push:
     branches:
       - main
@@ -28,12 +28,12 @@ jobs:
     - name: Run script
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      run: python generate_languages.py
+      run: python gerar_infor.py
 
     - name: Commit and push changes
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         git add .
-        git commit -m 'Update languages chart'
+        git commit -m 'Update infor chart'
         git push
