@@ -36,6 +36,7 @@ jobs:
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
+        git pull origin main  # Adicione esta linha para fazer pull das mudanças
         git add .
         git commit -m 'Update infor chart'
-        git push
+        git push origin main
