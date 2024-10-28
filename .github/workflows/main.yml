@@ -1,8 +1,8 @@
-name: Gerar info Charts
+name: Gerar infor Chart
 
 on:
   schedule:
-    - cron: '*/10 * * * *' # Executa de 10 em 10 minutos
+    - cron: '*/10 * * * *' # Executa a cada 10 minutos
   push:
     branches:
       - main
@@ -13,10 +13,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3  # Atualizado para v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4  # Atualizado para v4
       with:
         python-version: '3.x'
 
@@ -28,7 +28,7 @@ jobs:
     - name: Run script
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      run: python gerar_infor.py
+      run: python generate_languages.py
 
     - name: Commit and push changes
       run: |
