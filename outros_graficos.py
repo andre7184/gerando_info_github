@@ -11,7 +11,7 @@ total = sum(data)
 percentages = [d / total * 100 for d in data]
 
 # Configuração do gráfico de barras: ajustar a largura para não ficar muito estreito
-fig, ax = plt.subplots(figsize=(6.3, 2))  # Aumentar a altura para dar espaço à legenda
+fig, ax = plt.subplots(figsize=(5.5, 1)) # Aumentar a altura para dar espaço à legenda
 
 # Gera a barra empilhada horizontal
 bottom = 0
@@ -20,8 +20,9 @@ for i in range(len(languages)):
     bottom += percentages[i]
 
 # Configurações adicionais do gráfico
-ax.set_title('Distribuição de Linguagens em Todos os Repositórios')
-ax.set_yticks([])  # Remove os ticks do eixo y
+ax.set_title('Linguagens em Todos os Repositórios')
+ax.set_yticks([])
+ax.set_xticks([])
 
 # Remover as linhas de grade e a palavra "Porcentagem"
 ax.grid(False)
@@ -33,8 +34,8 @@ for spine in ax.spines.values():
 
 # Dividir os nomes das linguagens em 3 colunas na legenda
 handles, labels = ax.get_legend_handles_labels()
-ncol = 3
-ax.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, -0.3), ncol=ncol)  # Legenda abaixo do gráfico
+ncol = 2
+ax.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.475, -1), ncol=ncol)  # Legenda abaixo do gráfico
 
 # Ajustar layout para garantir que a legenda tenha espaço suficiente
 plt.tight_layout()

@@ -44,7 +44,7 @@ line_linguages = list(sorted_languages.values())
 total = sum(line_linguages)
 percentages = [d / total * 100 for d in line_linguages]
 
-fig, ax = plt.subplots(figsize=(7, 2.1))
+fig, ax = plt.subplots(figsize=(6.8, 2.1))
 bottom = 0
 for i in range(len(languages)):
     ax.barh(0, percentages[i], left=bottom, color=cores[i], label=f'{nome_languages[i]} ({percentages[i]:.2f}%)')
