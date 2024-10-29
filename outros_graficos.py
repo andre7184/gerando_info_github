@@ -6,6 +6,7 @@ languages = ['Python', 'JavaScript', 'HTML', 'CSS', 'Php', 'Shell', 'Java', 'C',
 data = [65, 17, 8, 3, 2, 1.8, 1.2, 0.8, 0.5, 0.5, 0.2]  # Quantidade de linhas de código para cada linguagem em todos os repositórios
 cores = ['Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Orange', 'Pink', 'Brown', 'Gray', 'Cyan', 'Magenta', 'Lime', 'Maroon', 'Navy', 'Olive', 'Teal', 'Silver', 'Gold']
 
+#ok
 # Calcular a porcentagem de cada linguagem
 total = sum(data)
 percentages = [d / total * 100 for d in data]
