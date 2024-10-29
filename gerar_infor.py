@@ -3,11 +3,10 @@ import matplotlib.pyplot as plt
 from collections import defaultdict
 import os
 
-# Substitua 'seu_usuario' pelo seu nome de usuário do GitHub
-username = 'andre7184'
 # Obtenha o token da variável de ambiente
 token = os.getenv('GH_TOKEN')
-repos_url = f'https://api.github.com/users/{username}/repos'
+repos_url = 'https://api.github.com/user/repos'
+cores = ['Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Orange', 'Pink', 'Brown', 'Gray', 'Cyan', 'Magenta', 'Lime', 'Maroon', 'Navy', 'Olive', 'Teal', 'Silver', 'Gold']
 
 # Cabeçalhos para autenticação
 headers = {
@@ -35,48 +34,33 @@ for repo in repos:
         else:
             languages[language] = lines
     
-    # Obter commits
-    commits_url = f'https://api.github.com/repos/{username}/{repo_name}/commits'
-    commits = requests.get(commits_url, headers=headers).json()
-    for commit in commits:
-        author = commit['commit']['author']['name']
-        commits_per_repo[repo_name] += 1
-        commits_per_author[author] += 1
 
 print("Gerando gráficos...")
 
 # Ordene as linguagens por quantidade de linhas de código
 sorted_languages = dict(sorted(languages.items(), key=lambda item: item[1], reverse=True))
+nome_languages = list(sorted_languages.keys())
+line_linguages = list(sorted_languages.values())
+total = sum(line_linguages)
+percentages = [d / total * 100 for d in line_linguages]
 
-# Crie o gráfico de linha para linguagens
-plt.figure(figsize=(10, 5))
-plt.plot(list(sorted_languages.keys()), list(sorted_languages.values()), marker='o')
-plt.xlabel('Linguagens')
-plt.ylabel('Linhas de Código')
-plt.title('Linguagens Mais Usadas')
-plt.xticks(rotation=45)
+fig, ax = plt.subplots(figsize=(7, 2.1))
+bottom = 0
+for i in range(len(languages)):
+    ax.barh(0, percentages[i], left=bottom, color=cores[i], label=f'{nome_languages[i]} ({percentages[i]:.2f}%)')
+    bottom += percentages[i]
+ax.set_title('Linguagens dos Repositórios')
+ax.set_yticks([])
+ax.set_xticks([])
+ax.grid(False)
+ax.set_xlabel('')
+for spine in ax.spines.values():
+    spine.set_visible(False)
+handles, labels = ax.get_legend_handles_labels()
+ncol = 3
+ax.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.475, -0.3), ncol=ncol)
 plt.tight_layout()
 plt.savefig('languages_chart.png')
+plt.show()
 print("Gráfico de linguagens gerado: languages_chart.png")
 
-# Crie o gráfico de barras para commits por repositório
-plt.figure(figsize=(10, 5))
-plt.bar(commits_per_repo.keys(), commits_per_repo.values())
-plt.xlabel('Repositórios')
-plt.ylabel('Commits')
-plt.title('Commits por Repositório')
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.savefig('commits_per_repo_chart.png')
-print("Gráfico de commits por repositório gerado: commits_per_repo_chart.png")
-
-# Crie o gráfico de barras para commits por autor
-plt.figure(figsize=(10, 5))
-plt.bar(commits_per_author.keys(), commits_per_author.values())
-plt.xlabel('Autores')
-plt.ylabel('Commits')
-plt.title('Commits por Autor')
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.savefig('commits_per_author_chart.png')
-print("Gráfico de commits por autor gerado: commits_per_author_chart.png")
