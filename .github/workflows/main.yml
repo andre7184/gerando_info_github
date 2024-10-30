@@ -37,6 +37,10 @@ jobs:
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         git pull origin main  # Adicione esta linha para fazer pull das mudanças
-        git add .
-        git commit -m 'Update infor chart'
-        git push origin main
+        if [[ -n $(git status -s) ]]; then
+          git add .
+          git commit -m 'Update infor chart'
+          git push origin main
+        else
+          echo "No changes to commit"
+        fi
