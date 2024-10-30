@@ -2,7 +2,7 @@ name: Gerar infor Chart
 
 on:
   schedule:
-    - cron: '*/10 * * * *' # Executa a cada 10 minutos
+    - cron: '0 6 * * *' # Executa todos os dias às 6:00 da manha
   push:
     branches:
       - main
